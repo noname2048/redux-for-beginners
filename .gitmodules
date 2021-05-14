@@ -1,0 +1,6 @@
+[submodule "vanila-count-redux"]
+	path = vanila-count-redux
+	url = git@github.com:noname2048/vanila-count-redux.git
+[submodule "vanila-todo-redux"]
+	path = vanila-todo-redux
+	url = git@github.com:noname2048/vanila-todo-redux.git
