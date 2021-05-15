@@ -1,26 +1,41 @@
 import React, { useState } from "react";
 
-function Home() {
+import { actionCreators } from "../store";
+import { connect } from "react-redux";
+
+function Home({ toDos, addToDo }) {
   const [text, setText] = useState("");
   function onChange(e) {
     setText(e.target.value);
   }
-  
+
   function onSubmit(e) {
-      e.preventDefault();
-      console.log(text);
+    e.preventDefault();
+    addToDo(text);
+    setText("");
   }
-  
+
   return (
     <>
       <h1>To Do</h1>
-      <form onSubmit={onSubmit}  action="">
+      <form onSubmit={onSubmit} action="">
         <input type="text" value={text} onChange={onChange} name="" id="" />
         <button>Add</button>
       </form>
-      <ul></ul>
+      <ul>{JSON.stringify(toDos)}</ul>
     </>
   );
 }
 
-export default Home;
+function mapStateToProps(state, ownProps) {
+  return { toDos: state };
+}
+
+function mapDispatchProps(dispatch) {
+  console.log(dispatch);
+  return {
+    addToDo: (text) => dispatch(actionCreators.addToDo(text)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchProps)(Home);

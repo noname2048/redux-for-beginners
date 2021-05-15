@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "baseUrl": "react-with-redux/src"
+    },
+    "include": [
+        "react-with-redux/src"
+    ]
+}

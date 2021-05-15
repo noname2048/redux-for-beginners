@@ -24,6 +24,10 @@ const reducer = (state = [], action) => {
 
 const store = createStore(reducer);
 
-store.subscribe();
+// store.subscribe();
 
 export default store;
+export const actionCreators = {
+  addToDo,
+  deleteToDo,
+}
