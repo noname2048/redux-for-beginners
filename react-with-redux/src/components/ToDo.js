@@ -14,7 +14,7 @@ function ToDo({ text, onBtnClick, id }) {
 
 function mapStateToProps(dispatch, ownProps) {
   return {
-    onBtnClick: () => dispatch(actionCreators.deleteToDo(ownProps.id)),
+    onBtnClick: () => dispatch(actionCreators.deleteToDo({id: ownProps.id})),
   };
 }
 
