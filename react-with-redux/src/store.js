@@ -1,4 +1,5 @@
-import { createAction } from "@reduxjs/toolkit"
+import { createAction, createReducer } from "@reduxjs/toolkit"
+
 import { createStore } from "redux";
 
 const addToDo = createAction("ADD");
@@ -17,17 +18,26 @@ function loadLocalStorage() {
 
 const initState = loadLocalStorage();
 
-const reducer = (state = initState, action) => {
-  console.log(action)
-  switch (action.type) {
-    case addToDo.type:
-      return [{ text: action.payload.text, id: Date.now() }, ...state];
-    case deleteToDo.type:
-      return state.filter((toDo) => toDo.id !== action.payload.id);
-    default:
-      return [...state];
-  }
-};
+// const reducer = (state = initState, action) => {
+//   console.log(action)
+//   switch (action.type) {
+//     case addToDo.type:
+//       return [{ text: action.payload.text, id: Date.now() }, ...state];
+//     case deleteToDo.type:
+//       return state.filter((toDo) => toDo.id !== action.payload.id);
+//     default:
+//       return [...state];
+//   }
+// };
+
+const reducer = createReducer(initState, {
+  [addToDo]: (state, action) => {
+    state.unshift({text: action.payload.text, id: Date.now()})  // mutate (don't return)
+  },
+  [deleteToDo]: (state, action) => 
+    state.filter(toDo => toDo.id !== action.payload.id)  // return state: it should be new state!
+  ,
+});
 
 const store = createStore(reducer);
 
