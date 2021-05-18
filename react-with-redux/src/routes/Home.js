@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import ToDo from "../components/ToDo";
+import { TodoHeader } from "../components/TodoTemplate";
 import { actionCreators } from "../store";
 import { connect } from "react-redux";
 
@@ -18,6 +19,7 @@ function Home({ toDos, addToDo }) {
 
   return (
     <>
+      <TodoHeader />
       <h1>To Do</h1>
       <form onSubmit={onSubmit} action="">
         <input type="text" value={text} onChange={onChange} name="" id="" />
