@@ -1,5 +1,3 @@
-import "./TodoTemplate.scss";
-
 import { MdAdd, MdDelete, MdDone } from 'react-icons/md';
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
