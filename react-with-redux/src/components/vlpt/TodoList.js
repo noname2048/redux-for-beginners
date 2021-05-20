@@ -14,7 +14,7 @@ function TodoList({ toDos }) {
   console.log(toDos)
   return (
     <TodoListBlock>
-      { toDos.map((toDo, idx) => <TodoItem key={idx} text={toDo.text} done={true}/>) }
+      { toDos.map((toDo, idx) => <TodoItem key={toDo.id} text={toDo.text} done={true}/>) }
       <TodoItem text="프로젝트 생성하기" done={true} />
       <TodoItem text="컴포넌트 스타일링 하기" done={true} />
       <TodoItem text="Context 만들기" done={false} />
