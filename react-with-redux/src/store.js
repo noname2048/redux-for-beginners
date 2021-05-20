@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit"
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 // import { createStore } from "redux";
 
@@ -6,12 +6,12 @@ import { configureStore, createSlice } from "@reduxjs/toolkit"
 // const deleteToDo = createAction("DELETE");
 
 function loadLocalStorage() {
-  const cache = window.localStorage.getItem("todo")
+  const cache = window.localStorage.getItem("todo");
   let state = [];
   if (cache !== null) {
     state = JSON.parse(cache);
   }
-  console.log(state)
+  console.log(state);
   const ret = state;
   return ret;
 }
@@ -34,7 +34,7 @@ const initState = loadLocalStorage();
 //   [addToDo]: (state, action) => {
 //     state.unshift({text: action.payload.text, id: Date.now()})  // mutate (don't return)
 //   },
-//   [deleteToDo]: (state, action) => 
+//   [deleteToDo]: (state, action) =>
 //     state.filter(toDo => toDo.id !== action.payload.id)  // return state: it should be new state!
 //   ,
 // });
@@ -44,14 +44,21 @@ const toDos = createSlice({
   initialState: initState,
   reducers: {
     add: (state, action) => {
-      state.unshift({text: action.payload.text, id: Date.now()})
+      state.unshift({ text: action.payload.text, id: Date.now(), done: false });
     },
-    remove: (state, action) => state.filter((toDo) => toDo.id !== action.payload.id)
-  }
-})
+    remove: (state, action) =>
+      state.filter((toDo) => toDo.id !== action.payload.id),
+    toggle: (state, action) => {
+      const newState = state.map((todo) =>
+        todo.id === action.payload.id ? { ...todo, done: !todo.done } : todo
+      )
+      return newState;
+    },
+  },
+});
 
 // const store = createStore(reducer);
-const store = configureStore({reducer: toDos.reducer})
+const store = configureStore({ reducer: toDos.reducer });
 
 function saveLocalStorage() {
   const state = JSON.stringify(store.getState());
@@ -65,6 +72,7 @@ export default store;
 export const actionCreators = {
   addToDo: toDos.actions.add,
   deleteToDo: toDos.actions.remove,
-}
+  toggleToDo: toDos.actions.toggle,
+};
 
 export const { add, remove } = toDos.actions;
