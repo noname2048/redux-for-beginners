@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 
 import ToDo from "../components/ToDo";
-import { TodoHeader } from "../components/TodoTemplate";
+import TodoCreate from "../components/vlpt/TodoCreate";
+import TodoHead from "../components/vlpt/TodoHead";
+import TodoList from "../components/vlpt/TodoList";
 import { actionCreators } from "../store";
 import { connect } from "react-redux";
 
@@ -19,7 +21,10 @@ function Home({ toDos, addToDo }) {
 
   return (
     <>
-      <TodoHeader />
+      <TodoHead />
+      <TodoList>
+      </TodoList>
+      <TodoCreate></TodoCreate>
       <h1>To Do</h1>
       <form onSubmit={onSubmit} action="">
         <input type="text" value={text} onChange={onChange} name="" id="" />

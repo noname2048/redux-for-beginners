@@ -3,7 +3,7 @@ import { Route, HashRouter as Router } from "react-router-dom";
 import Detail from "../routes/Detail";
 import Home from "../routes/Home";
 import React from "react";
-import { TodoWhiteBox } from "./TodoTemplate";
+import TodoTemplate from "./vlpt/TodoTemplate";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
@@ -14,13 +14,13 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <TodoWhiteBox>
+    <TodoTemplate>
       <Router>
         <GlobalStyle />
         <Route path="/" exact component={Home} />
         <Route path="/:id" component={Detail}></Route>
       </Router>
-    </TodoWhiteBox>
+    </TodoTemplate>
   );
 }
 
