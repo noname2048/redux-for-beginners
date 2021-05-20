@@ -1,7 +1,9 @@
-import { MdDelete, MdDone } from 'react-icons/md';
-import styled, { css } from 'styled-components';
+import { MdDelete, MdDone } from "react-icons/md";
+import styled, { css } from "styled-components";
 
-import React from 'react';
+import React from "react";
+import { actionCreators } from "../../store";
+import { connect } from "react-redux";
 
 const Remove = styled.div`
   display: flex;
@@ -39,7 +41,7 @@ const CheckCircle = styled.div`
   justify-content: center;
   margin-right: 20px;
   cursor: pointer;
-  ${props =>
+  ${(props) =>
     props.done &&
     css`
       border: 1px solid #38d9a9;
@@ -51,23 +53,30 @@ const Text = styled.div`
   flex: 1;
   font-size: 21px;
   color: #495057;
-  ${props =>
+  ${(props) =>
     props.done &&
     css`
       color: #ced4da;
     `}
 `;
 
-function TodoItem({ id, done, text }) {
+function TodoItem({ id, done, text, toggleTodo, removeTodo }) {
   return (
     <TodoItemBlock>
-      <CheckCircle done={done}>{done && <MdDone />}</CheckCircle>
+      <CheckCircle onClick={toggleTodo} done={done}>{done && <MdDone />}</CheckCircle>
       <Text done={done}>{text}</Text>
       <Remove>
-        <MdDelete />
+        <MdDelete onClick={removeTodo} />
       </Remove>
     </TodoItemBlock>
   );
 }
 
-export default TodoItem;
+const mapDispatchProps = (dispatch, ownProps) => {
+  return {
+    removeTodo: () => dispatch(actionCreators.deleteToDo({ id: parseInt(ownProps.id) })),
+    toggleTodo: () => dispatch(actionCreators.toggleToDo({ id: parseInt(ownProps.id) })),
+  };
+};
+
+export default connect(null, mapDispatchProps)(TodoItem);

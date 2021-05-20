@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
 
-import { MdAdd } from 'react-icons/md';
+import { MdAdd } from "react-icons/md";
+import { actionCreators } from "../../store";
+import { connect } from "react-redux";
 
 const CircleButton = styled.button`
   background: #38d9a9;
@@ -33,7 +35,7 @@ const CircleButton = styled.button`
   justify-content: center;
 
   transition: 0.125s all ease-in;
-  ${props =>
+  ${(props) =>
     props.open &&
     css`
       background: #ff6b6b;
@@ -76,16 +78,27 @@ const Input = styled.input`
   box-sizing: border-box;
 `;
 
-function TodoCreate() {
+function TodoCreate({ addTodo }) {
   const [open, setOpen] = useState(false);
+  const [text, setText] = useState("");
 
   const onToggle = () => setOpen(!open);
+
+  const onChange = (e) => {
+    setText(e.target.value);
+  }
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    addTodo(text);
+    setText("");
+  }
 
   return (
     <>
       {open && (
         <InsertFormPositioner>
-          <InsertForm>
+          <InsertForm onSubmit={onSubmit} onChange={onChange}>
             <Input autoFocus placeholder="할 일을 입력 후, Enter 를 누르세요" />
           </InsertForm>
         </InsertFormPositioner>
@@ -97,4 +110,10 @@ function TodoCreate() {
   );
 }
 
-export default TodoCreate;
+const mapDispatchProps = (dispatch, ownProps) => {
+  return {
+    addTodo: (text) => dispatch(actionCreators.addToDo({ text })),
+  };
+};
+
+export default connect(null, mapDispatchProps)(TodoCreate);
