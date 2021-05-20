@@ -25,12 +25,14 @@ function Home({ toDos, addToDo }) {
       <TodoList>
       </TodoList>
       <TodoCreate></TodoCreate>
-      <h1>To Do</h1>
-      <form onSubmit={onSubmit} action="">
-        <input type="text" value={text} onChange={onChange} name="" id="" />
-        <button>Add</button>
-      </form>
-      <ul>{toDos.map(toDo => <ToDo {...toDo} key={toDo.id}/>)}</ul>
+      <div style={ {backgroundColor: "grey", display: "none"} }>
+        <h1>To Do</h1>
+        <form onSubmit={onSubmit} action="">
+          <input type="text" value={text} onChange={onChange} name="" id="" />
+          <button>Add</button>
+        </form>
+        <ul>{toDos.map(toDo => <ToDo {...toDo} key={toDo.id}/>)}</ul>
+      </div>
     </>
   );
 }
